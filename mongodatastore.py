@@ -21,6 +21,9 @@ class RedisDatastore:
 		except DuplicateKeyError:
 			return 0
 
+	def update(self, key, new_val):
+		self.coll.update({"_id":key}, {"$set" : {'value' : new_val}})
+
 	def sadd(self, set_name, member):
 		# I am not returning anything. I hope we don't use ret value of sadd
 		# upsert gurantees that if set_name is absent create one
